@@ -211,23 +211,16 @@ fn alaw_to_linear(sample: u8) -> i16 {
 
 #[rustler::nif]
 pub fn expand_ulaw_buffer<'a>(env: Env<'a>, buff: Binary<'a>) -> NifResult<Binary<'a>> {
-  let mut out_buff = OwnedBinary::new(buff.len()*2).unwrap();
-
-  let mut vec = Vec::new();
-  for sample in buff.as_slice() {
-    vec.push(
-      expand_ulaw(*sample)
-    )
-  };
-
-  let mut i = 0;
-  for bytes in out_buff.as_mut_slice().chunks_mut(2) {
-    // position swap bytes
-    [bytes[1], bytes[0]] = i16_to_bytes(vec[i]);
-    i+=1;
-  };
-
-  Ok(Binary::from_owned(out_buff, env))
+    let mut out_buff = OwnedBinary::new(buff.len()*2).unwrap();
+    let mut i = 0;
+    for sample in buff.as_slice() {
+        let expanded_sample = expand_ulaw(*sample);
+        let bytes = i16_to_bytes(expanded_sample);
+        out_buff.as_mut_slice()[i] = bytes[0];
+        out_buff.as_mut_slice()[i + 1] = bytes[1];
+        i += 2;
+    }
+    Ok(Binary::from_owned(out_buff, env))
 }
 
 #[rustler::nif]
