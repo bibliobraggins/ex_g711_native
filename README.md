@@ -1,3 +1,6 @@
+Probably don't use this repository.
+
+
 # G7xxPlugin
 
 This is an experimental set of rustler nifs that implements a simple G711 encoder and decoder function for audio devices that use said codec.
