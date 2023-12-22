@@ -1,4 +1,4 @@
-defmodule G711u.Encoder do
+defmodule G711u. do
 
   def handle_buffer(<<buffer::bitstring>>) do
     output = <<>>
