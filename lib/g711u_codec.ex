@@ -1,4 +1,4 @@
-defmodule G711u. do
+defmodule G711u.Codec do
 
   def handle_buffer(<<buffer::bitstring>>) do
     output = <<>>
