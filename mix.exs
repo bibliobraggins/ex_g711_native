@@ -1,4 +1,4 @@
-defmodule G7XXPlugin.MixProject do
+defmodule G7xxNative.MixProject do
 
 use Mix.Project
 
