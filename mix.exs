@@ -7,23 +7,13 @@ use Mix.Project
 
   def project do
     [
-      app: :g7xx_plugin,
+      app: :g7xx_native,
       version: @version,
       elixir: "~> 1.13",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       dialyzer: dialyzer(),
-
-      # hex
-      description: "G7XX Plugin for Membrane Multimedia Framework",
-      package: package(),
-
-      # docs
-      name: "Membrane Template plugin",
-      source_url: @github_url,
-      homepage_url: "https://membraneframework.org",
-      docs: docs()
     ]
   end
 
@@ -38,45 +28,7 @@ use Mix.Project
 
   defp deps do
     [
-      {:membrane_core, ">= 0.11.0"},
-      {:ex_doc, ">= 0.0.0", only: :dev, runtime: false},
-      {:dialyxir, ">= 0.0.0", only: :dev, runtime: false},
-      {:credo, ">= 0.0.0", only: :dev, runtime: false},
       {:rustler, "~> 0.26.0"},
-    ]
-  end
-
-  defp dialyzer() do
-    opts = [
-      flags: [:error_handling]
-    ]
-
-    if System.get_env("CI") == "true" do
-      # Store PLTs in cacheable directory for CI
-      [plt_local_path: "priv/plts", plt_core_path: "priv/plts"] ++ opts
-    else
-      opts
-    end
-  end
-
-  defp package do
-    [
-      maintainers: ["Membrane Team"],
-      licenses: ["Apache-2.0"],
-      links: %{
-        "GitHub" => @github_url,
-        "Membrane Framework Homepage" => "https://membraneframework.org"
-      }
-    ]
-  end
-
-  defp docs do
-    [
-      main: "readme",
-      extras: ["README.md", "LICENSE"],
-      formatters: ["html"],
-      source_ref: "v#{@version}",
-      nest_modules_by_prefix: [Membrane.Template]
     ]
   end
 
